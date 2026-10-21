@@ -7,8 +7,8 @@
   **High-Speed Bulk & Single Media Downloader with Glassmorphic Desktop Experience**
 
   <p align="center">
-    <a href="https://github.com/Eaminx/OmniMedia-Open-Source-Video-Dowloader-Youtube-Facebook-Instagram-Tiktok-/releases/latest">
-      <img src="https://img.shields.io/github/v/release/Eaminx/OmniMedia-Open-Source-Video-Dowloader-Youtube-Facebook-Instagram-Tiktok-?color=38bdf8&style=for-the-badge&logo=windows&logoColor=white&label=Download%20EXE" alt="Latest Release" />
+    <a href="https://github.com/Eaminx/OmniMedia/releases/latest">
+      <img src="https://img.shields.io/github/v/release/Eaminx/OmniMedia?color=38bdf8&style=for-the-badge&logo=windows&logoColor=white&label=Download%20EXE" alt="Latest Release" />
     </a>
     <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue?style=for-the-badge&logo=windows" alt="Platform Windows" />
     <img src="https://img.shields.io/badge/Python-3.10%2B-blueviolet?style=for-the-badge&logo=python" alt="Python" />
@@ -40,7 +40,7 @@ No Python, FFmpeg, or dependencies required! Download the pre-compiled, fully se
 
 | Release | Platform | Format | Size | Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **OmniMedia Pro v1.0.0** | Windows 10 & 11 (64-bit) | Standalone `.exe` | ~91.5 MB | [**Download OmniMedia_Pro.exe**](https://github.com/Eaminx/OmniMedia-Open-Source-Video-Dowloader-Youtube-Facebook-Instagram-Tiktok-/releases/latest) |
+| **OmniMedia Pro v1.0.0** | Windows 10 & 11 (64-bit) | Standalone `.exe` | ~91.5 MB | [**Download OmniMedia_Pro.exe**](https://github.com/Eaminx/OmniMedia/releases/latest) |
 
 *Simply download and double-click to run. Everything (Python runtime, WebView2 bridge, yt-dlp, FFmpeg binaries, and UI assets) is packed into this single file.*
 
@@ -131,8 +131,8 @@ graph TD
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Eaminx/OmniMedia-Open-Source-Video-Dowloader-Youtube-Facebook-Instagram-Tiktok-.git
-cd OmniMedia-Open-Source-Video-Dowloader-Youtube-Facebook-Instagram-Tiktok-
+git clone https://github.com/Eaminx/OmniMedia.git
+cd OmniMedia
 ```
 
 ### 2. Install Dependencies
