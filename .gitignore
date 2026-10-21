@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller / Build artifacts
+build/
+dist/
+*.spec
+
+# Credentials and sensitive tokens (NEVER commit cookies!)
+cookies.txt
+*.cookie
+*.session
+
+# Local App Data & Logs
+*.log
+scratch/
+download_history.json
+OmniMediaPro_WebProfile/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
