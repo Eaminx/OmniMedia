@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>OmniMedia Pro - Multi-Platform Bulk Media Downloader</title>
+  <link rel="stylesheet" href="index.css?v=3.2">
+</head>
+<body>
+  <!-- MODERN APP STARTUP / SPLASH LOADER OVERLAY -->
+  <div id="appSplashScreen" class="app-splash-screen">
+    <div class="splash-card">
+      <div class="splash-logo-container">
+        <div class="splash-spinner-ring"></div>
+        <div class="splash-spinner-ring-inner"></div>
+        <div class="splash-logo-core">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+      </div>
+      <div class="splash-brand-text">
+        <h1 class="splash-title">OMNI<span>PRO</span></h1>
+        <p class="splash-sub">Multi-Platform Desktop Engine</p>
+      </div>
+      <div class="splash-status-row">
+        <span class="splash-pulse-dot"></span>
+        <span id="splashStatusText" class="splash-status-text">Initializing engine & modules...</span>
+      </div>
+      <div class="splash-progress-track">
+        <div class="splash-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vercel-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-group">
+        <div class="brand-logo-cube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="brand-info">
+          <h2>OMNI<span>PRO</span></h2>
+          <span class="sub-brand">Next Media Engine</span>
+        </div>
+      </div>
+
+      <!-- Platform Grid (2x2 Clean Layout - No Overflow!) -->
+      <div class="platform-grid-2x2">
+        <span class="plat-grid-item yt" title="YouTube"><span class="dot"></span>YouTube</span>
+        <span class="plat-grid-item tt" title="TikTok"><span class="dot"></span>TikTok</span>
+        <span class="plat-grid-item ig" title="Instagram"><span class="dot"></span>Instagram</span>
+        <span class="plat-grid-item fb" title="Facebook"><span class="dot"></span>Facebook</span>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="nav-stack">
+        <button class="nav-link active" data-tab="tab-single">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+          <span>Single Downloader</span>
+        </button>
+
+        <button class="nav-link" data-tab="tab-channel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+          <span>Channel & Profile Scraper</span>
+          <span class="pro-chip">FEED</span>
+        </button>
+
+        <button class="nav-link" data-tab="tab-bulk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Batch URLs List</span>
+        </button>
+
+        <button class="nav-link" data-tab="tab-queue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Queue & Downloads</span>
+          <span class="nav-counter" id="sidebarQueueCount">0</span>
+        </button>
+
+        <button class="nav-link" data-tab="tab-history">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Download History</span>
+        </button>
+
+        <button class="nav-link" data-tab="tab-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings & Diagnostics</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Bottom -->
+      <div class="sidebar-tray">
+        <div class="tray-card">
+          <div class="tray-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span>Output Directory</span>
+          </div>
+          <div class="tray-path" id="sidebarFolderPath">C:\Downloads</div>
+          <div class="tray-btns">
+            <button class="btn-ghost-sm" id="btnChangeFolder">Change</button>
+            <button class="btn-ghost-sm" id="btnOpenFolder">Open</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN BODY -->
+    <main class="main-stage">
+      
+      <!-- Top Metrics Ribbon -->
+      <header class="glossy-ribbon">
+        <button class="mobile-sidebar-toggle" id="btnToggleSidebar" title="Toggle Sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="ribbon-metric">
+          <span class="r-label">ACTIVE JOBS</span>
+          <span class="r-val r-cyan" id="ribbonActiveCount">0</span>
+        </div>
+        <div class="ribbon-metric">
+          <span class="r-label">QUEUED VIDEOS</span>
+          <span class="r-val" id="ribbonQueueCount">0 items</span>
+        </div>
+        <div class="ribbon-metric">
+          <span class="r-label">BANDWIDTH</span>
+          <span class="r-val r-speed" id="ribbonSpeed">0 B/s</span>
+        </div>
+        <div class="ribbon-metric">
+          <span class="r-label">COMPLETED</span>
+          <span class="r-val r-green" id="ribbonCompleted">0</span>
+        </div>
+        <button class="btn-auth-chip" id="btnRibbonSignIn" title="Sign into your YouTube account inside the app">
+          <span class="auth-dot" id="authDot"></span>
+          <span id="authRibbonText">Sign In to YouTube</span>
+        </button>
+        <div class="ribbon-badge">
+          <span class="live-dot"></span>
+          <span id="ribbonEngineText">Vercel Engine Ready</span>
+        </div>
+        <button class="btn-about-eaminx" id="btnAboutEaminx" title="About Developer & Community">
+          <img src="assets/Elogo.png" alt="Eaminx Logo" class="eaminx-avatar-mini-img">
+          <span>About Eaminx</span>
+          <span class="about-sparkle">✦</span>
+        </button>
+      </header>
+
+      <!-- TAB 1: Single Downloader -->
+      <section class="stage-view active" id="tab-single">
+        <div class="view-lead">
+          <h1>Single Media Downloader</h1>
+          <p>Instant high-definition download with automatic platform detection & metadata preview.</p>
+        </div>
+
+        <div class="glossy-card input-hero-card">
+          <div class="omni-search-wrapper">
+            <div class="auto-plat-chip" id="detectedPlatformBadge">
+              <span class="chip-txt">AUTO DETECT</span>
+            </div>
+            <input type="text" id="singleUrlInput" placeholder="Paste link from YouTube, TikTok, Instagram, or Facebook..." autocomplete="off">
+            <button class="btn-paste-sm" id="btnPasteSingle" title="Paste URL from clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              <span>Paste</span>
+            </button>
+            <button class="btn-vercel-primary" id="btnInspectSingle">
+              <span class="loader-circle" id="inspectSpinner"></span>
+              <span>Inspect Video</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Single Preview Result -->
+        <div class="glossy-card preview-hero-card" id="singleResultCard" style="display: none;">
+          <div class="preview-thumb-stage">
+            <img id="singleThumbImg" src="" alt="Thumbnail" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='assets/OmniMedia.png';">
+            <span class="chip-media-type" id="singleTypeBadge">VIDEO</span>
+            <span class="chip-duration" id="singleDurationBadge">00:00</span>
+          </div>
+          <div class="preview-content">
+            <div class="platform-indicator" id="singlePlatformTag">YOUTUBE</div>
+            <h2 id="singleVideoTitle">Video Title</h2>
+            <div class="preview-meta-row">
+              <span id="singleUploader">Creator</span> • <span id="singleContentType">Video</span>
+            </div>
+
+            <div class="preview-cta-row">
+              <div class="select-field">
+                <label>Resolution / Format</label>
+                <select id="singleQualitySelect" class="vercel-select"></select>
+              </div>
+
+              <!-- VIDEO SECTION TRIMMER (NEW) -->
+              <div class="trimmer-card-wrap">
+                <label class="trimmer-toggle-label">
+                  <input type="checkbox" id="chkEnableTrimmer" class="custom-checkbox">
+                  <span>✂️ Trim Video Section (Download specific time range only)</span>
+                </label>
+                <div class="trimmer-inputs-row" id="trimmerInputsRow" style="display: none;">
+                  <div class="trimmer-field">
+                    <span class="trim-lbl">Start Time:</span>
+                    <input type="text" id="trimStartTime" placeholder="00:00" class="trim-input" value="00:00">
+                  </div>
+                  <span class="trim-arrow">➔</span>
+                  <div class="trimmer-field">
+                    <span class="trim-lbl">End Time:</span>
+                    <input type="text" id="trimEndTime" placeholder="00:00" class="trim-input" value="00:00">
+                  </div>
+                  <span class="trim-hint">Format: MM:SS or HH:MM:SS</span>
+                </div>
+              </div>
+
+              <div class="cta-btns">
+                <button class="btn-vercel-primary btn-sm" id="btnDownloadSingleNow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1 2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download Now</span>
+                </button>
+                <button class="btn-vercel-secondary btn-sm" id="btnQueueSingle">
+                  <span>+ Add to Queue</span>
+                </button>
+                <button class="btn-vercel-secondary btn-sm" id="btnSaveThumbnail" title="Save original high-resolution thumbnail image to disk">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Save HD Thumb</span>
+                </button>
+                <button class="btn-vercel-secondary btn-sm" id="btnCopyDirectLink" title="Copy direct CDN / stream download link to clipboard for IDM / VLC / Browser">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <span>Copy Stream Link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Channel & Profile Scraper (With Avatar Logo!) -->
+      <section class="stage-view" id="tab-channel">
+        <div class="view-lead">
+          <h1>Channel & Profile Media Inspector</h1>
+          <p>Scan complete YouTube Channels (@channel), TikTok Profiles (@user), or Playlists with channel avatar logo and video thumbnails.</p>
+        </div>
+
+        <!-- Scanner Input Card -->
+        <div class="glossy-card scanner-ctrl-card">
+          <div class="omni-search-wrapper">
+            <input type="text" id="channelUrlInput" placeholder="Enter YouTube @Channel URL, TikTok @username, or Playlist link...">
+            <button class="btn-paste-sm" id="btnPasteChannel" title="Paste URL from clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              <span>Paste</span>
+            </button>
+            <button class="btn-vercel-primary" id="btnScanChannel">
+              <span class="loader-circle" id="channelSpinner"></span>
+              <span>Scan Feed</span>
+            </button>
+          </div>
+
+          <div class="scanner-filters-row">
+            <div class="filter-pills-wrap">
+              <span class="pill-label">Filter:</span>
+              <button class="glossy-pill active" data-filter="Both (Videos & Shorts)">Both (Videos + Shorts)</button>
+              <button class="glossy-pill" data-filter="All Videos">Videos Only</button>
+              <button class="glossy-pill" data-filter="All Shorts">Shorts / Reels Only</button>
+            </div>
+
+            <div class="limit-box">
+              <span class="pill-label">Limit:</span>
+              <select id="channelLimitSelect" class="vercel-select-sm">
+                <option value="50">50 items</option>
+                <option value="100" selected>100 items</option>
+                <option value="200">200 items</option>
+                <option value="500">500 items</option>
+                <option value="All Available">All Available</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHANNEL PROFILE HERO CARD (The Channel Logo Feature!) -->
+        <div class="glossy-card channel-profile-hero" id="channelProfileHero" style="display: none;">
+          <div class="channel-avatar-ring">
+            <img id="channelAvatarImg" src="" alt="Channel Logo" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='assets/OmniMedia.png';">
+          </div>
+          <div class="channel-profile-details">
+            <div class="channel-header-line">
+              <h2 id="channelProfileTitle">Channel Name</h2>
+              <svg class="verified-icon" viewBox="0 0 24 24" fill="#38bdf8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span class="channel-platform-badge" id="channelProfilePlatform">YOUTUBE</span>
+            </div>
+            <div class="channel-meta-stats">
+              <span id="channelProfileHandle">@handle</span> • <span id="channelDiscoveredCount">0 Videos Discovered</span>
+            </div>
+          </div>
+          <div class="channel-hero-actions">
+            <button class="btn-vercel-secondary btn-sm" id="btnHeroSelectAll">Select All</button>
+            <button class="btn-vercel-primary btn-sm" id="btnHeroQueueAll">Queue Selected</button>
+          </div>
+        </div>
+
+        <!-- Scanned Items Table with ACTUAL THUMBNAILS -->
+        <div class="glossy-card feed-table-card">
+          <div class="table-actions-header">
+            <div class="bulk-select-btns">
+              <button class="btn-tag-action" id="btnSelectAll">Select All</button>
+              <button class="btn-tag-action btn-ghost" id="btnDeselectAll">Deselect All</button>
+              <button class="btn-tag-action btn-tag-amber" id="btnSelectOnlyShorts">Only Shorts</button>
+              <button class="btn-tag-action btn-tag-cyan" id="btnSelectOnlyVideos">Only Videos</button>
+            </div>
+            <div class="table-search-wrap">
+              <input type="text" id="tableFilterInput" placeholder="Filter scanned titles...">
+              <span class="summary-chip" id="channelCountSummary">Scanned: 0 | Selected: 0</span>
+            </div>
+          </div>
+
+          <!-- Video Rows with Thumbnails -->
+          <div class="scanned-grid-container" id="scannedCardsContainer">
+            <div class="empty-feed-placeholder">
+              Enter a channel or profile link above and click "Scan Feed" to discover all videos with thumbnails.
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div class="batch-commit-panel">
+            <div class="commit-settings">
+              <div class="setting-item">
+                <label>Batch Group Name:</label>
+                <input type="text" id="batchCustomNameInput" placeholder="Channel Videos Batch">
+              </div>
+              <div class="setting-item">
+                <label>Quality:</label>
+                <select id="channelBatchQualitySelect" class="vercel-select-sm"></select>
+              </div>
+              <div class="setting-item setting-checkbox">
+                <label class="checkbox-label-inline" title="Skip videos that are already in your queue or already downloaded">
+                  <input type="checkbox" id="cbChannelSkipDuplicates" checked class="custom-checkbox">
+                  <span>Auto-skip duplicates</span>
+                </label>
+              </div>
+            </div>
+            <button class="btn-vercel-primary btn-sm" id="btnAddScannedToQueue" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span id="btnQueueSelectedText">Download Selected (0)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Batch URLs List -->
+      <section class="stage-view" id="tab-bulk">
+        <div class="view-lead">
+          <h1>Direct Batch URLs Importer</h1>
+          <p>Paste multiple YouTube, TikTok, Instagram, or Facebook links or import from a .txt file.</p>
+        </div>
+
+        <div class="glossy-card bulk-editor-panel">
+          <textarea id="bulkTextarea" placeholder="Paste links (one per line):&#10;https://www.youtube.com/watch?v=...&#10;https://www.tiktok.com/@user/video/...&#10;https://www.instagram.com/reel/...&#10;https://www.facebook.com/watch/..."></textarea>
+          
+          <div class="bulk-tray-bar">
+            <div class="tray-left">
+              <button class="btn-vercel-secondary" id="btnPasteBulk" title="Paste links from clipboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                <span>Paste Links</span>
+              </button>
+              <button class="btn-vercel-secondary" id="btnImportTxt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Import .txt</span>
+              </button>
+              <button class="btn-tag-action btn-ghost" id="btnDeduplicateBulk" title="Remove duplicate URLs from textbox">Clean Duplicates</button>
+              <span class="detected-chip" id="bulkUrlCount">0 URLs detected</span>
+            </div>
+
+            <div class="tray-right">
+              <label class="checkbox-label-inline" title="Skip videos that are already in your queue or already downloaded">
+                <input type="checkbox" id="cbBulkSkipDuplicates" checked class="custom-checkbox">
+                <span>Skip duplicates</span>
+              </label>
+              <select id="bulkQualitySelect" class="vercel-select-sm"></select>
+              <button class="btn-vercel-primary btn-sm" id="btnQueueBulk">
+                <span>Add All to Queue</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Download Queue & Hierarchy -->
+      <section class="stage-view" id="tab-queue">
+        <div class="view-lead-split">
+          <div>
+            <h1>Download Queue & Batch Inspector</h1>
+            <p>Every single video card, thumbnail, live progress bar, speed, pause/resume, and folder buttons.</p>
+          </div>
+          <div class="queue-global-ctrls">
+            <label class="queue-shutdown-pill" title="Automatically schedule Windows shutdown when queue is 100% completed">
+              <input type="checkbox" id="queueAutoShutdownToggle" class="custom-checkbox">
+              <span>⚡ Auto-Shutdown PC</span>
+            </label>
+            <button class="btn-vercel-secondary btn-sm" id="btnPauseQueue">Pause Queue</button>
+            <button class="btn-vercel-secondary btn-sm" id="btnClearCompleted" title="Clear all finished, cancelled, and errored downloads">Clear Finished & Cancelled</button>
+            <button class="btn-vercel-primary btn-sm" id="btnOpenFolderQueue">Open Output Folder</button>
+          </div>
+        </div>
+
+        <!-- Batches Container with Collapsible Group Hierarchy -->
+        <div class="batches-shelf" id="batchesContainer">
+          <div class="empty-queue-tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            <h3>Download queue is empty</h3>
+            <p>Add some videos, shorts, or scrape a channel to watch live downloads here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: Download History -->
+      <section class="stage-view" id="tab-history">
+        <div class="view-lead">
+          <h1>Download History</h1>
+          <p>Archived record of all completed downloads with direct file opening.</p>
+        </div>
+
+        <div class="channel-actions-toolbar" style="margin-bottom: 16px;">
+          <div class="search-box-wrap" style="flex: 1; max-width: 400px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="historySearchInput" placeholder="Filter completed downloads by title or quality...">
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-vercel-secondary btn-sm" id="btnClearHistory">Clear All History</button>
+            <button class="btn-vercel-primary btn-sm" id="btnOpenHistoryFolder">Open Output Folder</button>
+          </div>
+        </div>
+
+        <div class="batches-shelf" id="historyContainer">
+          <div class="empty-queue-tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>No completed downloads yet</h3>
+            <p>Downloaded videos will automatically appear in this history vault.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: Settings & Diagnostics -->
+      <section class="stage-view" id="tab-settings">
+        <div class="view-lead">
+          <h1>Settings & System Diagnostics</h1>
+          <p>Execution diagnostics, format preferences, bundled FFmpeg status, and live output stream.</p>
+        </div>
+
+        <!-- Engine Preferences Card -->
+        <div class="glossy-card info-card" style="margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 style="margin-bottom: 2px;">⚡ Engine Preferences & Advanced Formats</h3>
+              <p style="font-size: 0.78rem; color: #71717a;">Configure video muxing containers, audio tags, subtitle extraction, and download speeds.</p>
+            </div>
+            <button class="btn-vercel-primary btn-sm" id="btnSavePreferences">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Save Preferences</span>
+            </button>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label style="font-size: 0.76rem; color: #a1a1aa; display: block; margin-bottom: 6px;">DEFAULT VIDEO CONTAINER</label>
+              <select id="prefContainerFormat" class="select-glossy" style="width: 100%;">
+                <option value="mp4">MP4 (Universal Compatibility)</option>
+                <option value="mkv">MKV (Best for 4K / 8K & Multi-Audio Streams)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.76rem; color: #a1a1aa; display: block; margin-bottom: 6px;">DOWNLOAD SPEED LIMIT (PER STREAM)</label>
+              <select id="prefRateLimit" class="select-glossy" style="width: 100%;">
+                <option value="0">Unlimited (Maximum Bandwidth)</option>
+                <option value="15">15 MB/s (High Speed)</option>
+                <option value="8">8 MB/s (Medium)</option>
+                <option value="3">3 MB/s (Low Bandwidth)</option>
+                <option value="1">1 MB/s (Very Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer; color: #ededed;">
+              <input type="checkbox" id="prefEmbedMetadata" class="custom-checkbox" checked>
+              <span>Embed Album Cover Art & ID3 Metadata (Title, Artist, Album) into MP3/Audio</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer; color: #ededed;">
+              <input type="checkbox" id="prefDownloadSubtitles" class="custom-checkbox">
+              <span>Auto-Download Video Subtitles & Closed Captions (.srt / embedded)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer; color: #ededed;">
+              <input type="checkbox" id="prefClipboardMonitor" class="custom-checkbox" checked>
+              <span>📋 Auto-Detect Copied Media Links (Smart Clipboard Sniffer & Quick Download)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer; color: #ededed;">
+              <input type="checkbox" id="prefOrganizeSubfolders" class="custom-checkbox">
+              <span>📁 Organize Downloads into Channel / Creator Sub-Folders</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; cursor: pointer; color: #ededed;">
+              <input type="checkbox" id="prefAutoShutdown" class="custom-checkbox">
+              <span>⚡ Auto-Shutdown PC When All Queue Downloads Finish</span>
+            </label>
+          </div>
+
+          <div id="subtitlesLangWrap" style="display: none; margin-bottom: 8px;">
+            <label style="font-size: 0.76rem; color: #a1a1aa; display: block; margin-bottom: 6px;">SUBTITLE LANGUAGES (COMMA SEPARATED)</label>
+            <input type="text" id="prefSubtitleLangs" class="input-glossy" value="en,bn" placeholder="e.g. en, bn, hi, all" style="width: 100%; max-width: 320px;">
+          </div>
+        </div>
+
+        <div class="settings-grid-duo">
+          <div class="glossy-card info-card">
+            <h3>Engine Status</h3>
+            <div class="info-row">
+              <span>yt-dlp Core Engine:</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <strong class="text-cyan" id="diagYtdlp">Loading...</strong>
+                <button class="btn-ghost-sm" id="btnUpdateYtdlp" title="Check & Update yt-dlp to latest release" style="padding: 2px 8px; font-size: 0.72rem; border: 1px solid rgba(56,189,248,0.3);">🔄 Update</button>
+              </div>
+            </div>
+            <div class="info-row">
+              <span>FFmpeg Core:</span>
+              <strong class="text-green" id="diagFfmpeg">Bundled v7.1 Active</strong>
+            </div>
+            <div class="info-row">
+              <span>Python Runtime:</span>
+              <strong id="diagPython">3.14.7</strong>
+            </div>
+            <div class="info-row">
+              <span>Concurrent Download Threads:</span>
+              <strong class="text-cyan">3 Workers Parallel</strong>
+            </div>
+            <div class="info-row">
+              <span>Anti-Bot Shield:</span>
+              <strong class="text-green">Active (Mobile API Bypasser)</strong>
+            </div>
+            <div class="info-row">
+              <span>Cookies Status:</span>
+              <strong id="diagCookiesStatus" class="text-cyan">Shield Active (No Sign-in Needed)</strong>
+            </div>
+            <div class="info-row">
+              <span>Supported Platforms:</span>
+              <strong>YouTube, TikTok, Instagram, Facebook</strong>
+            </div>
+          </div>
+
+          <div class="glossy-card info-card">
+            <h3>Storage Configuration</h3>
+            <div class="storage-path-display" id="diagFolderPath">C:\Downloads</div>
+            <div class="storage-btns-row">
+              <button class="btn-vercel-primary btn-sm" id="btnChangeFolderDiag">Change Folder</button>
+              <button class="btn-vercel-secondary btn-sm" id="btnOpenFolderDiag">Open Explorer</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="glossy-card info-card" style="margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 style="margin-bottom: 2px;">YouTube In-App Sign-In (1-Click VIP 1080p / 4K Unlock)</h3>
+              <p style="font-size: 0.78rem; color: #71717a;">Sign in directly inside the app to unlock 4K/8K 60fps, age-restricted, and members-only videos. Zero manual cookie export required!</p>
+            </div>
+            <span id="cookieActiveBadge" class="summary-chip" style="font-size: 0.74rem;">Guest Mode</span>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button class="btn-vercel-primary btn-sm" id="btnSignInYouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              <span>🔐 Sign In to YouTube</span>
+            </button>
+            <button class="btn-vercel-secondary btn-sm" id="btnCaptureCookies" title="Sync & capture active login cookies">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              <span>Sync Cookies</span>
+            </button>
+            <button class="btn-vercel-secondary btn-sm" id="btnSignOutYouTube" style="display: none; color: #ef4444;">
+              <span>Sign Out</span>
+            </button>
+            <button class="btn-vercel-secondary btn-sm" id="btnAutoImportCookies" title="Auto-extract cookies from installed Chrome browser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Auto-Import (Chrome)</span>
+            </button>
+            <button class="btn-vercel-secondary btn-sm" id="btnOpenChromeExtension" title="Open official Chrome Web Store extension page in your browser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>Get Extension</span>
+            </button>
+            <button class="btn-vercel-secondary btn-sm" id="btnImportCookies">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Browse cookies.txt</span>
+            </button>
+            <button class="btn-tag-action btn-ghost" id="btnShowCookieHelp">❓ Guide & Options</button>
+          </div>
+        </div>
+
+        <div class="glossy-card console-card">
+          <div class="console-header">
+            <span>Terminal Telemetry Output</span>
+            <button class="btn-ghost-sm" id="btnClearLogs">Clear Log</button>
+          </div>
+          <pre class="terminal-text" id="logTerminal">Engine online...</pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- COOKIE HELP & EXTENSION MODAL -->
+  <div class="modal-backdrop" id="cookieHelpModal" style="display: none;">
+    <div class="glossy-card modal-content-box">
+      <div class="modal-header">
+        <h3>YouTube 1080p / 4K VIP Unlock & In-App Login</h3>
+        <button class="btn-tag-action btn-ghost" id="btnCloseCookieModal">✕ Close</button>
+      </div>
+      <div class="modal-body-content">
+        <!-- In-App Login Hero Banner -->
+        <div class="inapp-login-banner">
+          <div class="login-banner-text">
+            <strong>✨ Direct In-App YouTube Sign-In (Recommended)</strong>
+            <p>Sign into YouTube directly inside OmniMedia Pro. No extensions or file exports needed. Session cookies are captured automatically to unlock full 1080p, 4K & 8K on bot-flagged videos.</p>
+          </div>
+          <button class="btn-vercel-primary btn-sm" id="btnModalSignInYouTube">
+            <span>🔐 Launch In-App Sign In</span>
+          </button>
+        </div>
+
+        <p style="font-size: 0.82rem; color: #71717a; margin-top: 14px; margin-bottom: 10px;">
+          Alternatively, you can export cookies using a browser extension or auto-import from an installed browser:
+        </p>
+
+        <!-- Extension Link Cards -->
+        <div class="ext-cards-grid">
+          <div class="ext-card">
+            <div class="ext-card-info">
+              <strong>Get cookies.txt LOCALLY</strong>
+              <span>Recommended • Chrome Web Store • Free & Open Source</span>
+            </div>
+            <button class="btn-vercel-primary btn-sm" id="btnOpenExtLocally">
+              <span>Open in Chrome Store</span>
+            </button>
+          </div>
+
+          <div class="ext-card">
+            <div class="ext-card-info">
+              <strong>Cookie-Editor</strong>
+              <span>Popular alternative for Chrome, Edge, and Firefox</span>
+            </div>
+            <button class="btn-vercel-secondary btn-sm" id="btnOpenExtEditor">
+              <span>Open Extension Store</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="guide-steps-list" style="margin-top: 14px;">
+          <div class="guide-step">
+            <span class="step-num">1</span>
+            <div>
+              <strong>Install Extension in your Browser</strong>
+              <p>Click "Open in Chrome Store" above and click "Add to Chrome" (takes 2 seconds).</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">2</span>
+            <div>
+              <strong>Open YouTube.com</strong>
+              <p>Ensure you are signed in to your Google / YouTube account so your browser has active session cookies.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="step-num">3</span>
+            <div>
+              <strong>Click Export & Import into OmniMedia Pro</strong>
+              <p>Click the extension icon on youtube.com, click "Export" (or Copy), then click "Choose Exported cookies.txt" below.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;">
+        <button class="btn-vercel-secondary btn-sm" id="btnModalAutoImport">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Try 1-Click Auto-Extract</span>
+        </button>
+        <button class="btn-vercel-primary btn-sm" id="btnModalImportCookies">
+          <span>Choose Exported cookies.txt</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DUPLICATE WARNING MODAL -->
+  <div class="modal-backdrop" id="duplicateModal" style="display: none;">
+    <div class="glossy-card modal-content-box duplicate-box">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" style="width: 20px; height: 20px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <h3 id="duplicateModalTitle">Duplicate Videos Detected</h3>
+        </div>
+        <button class="btn-tag-action btn-ghost" id="btnCloseDuplicateModal">✕</button>
+      </div>
+      <div class="modal-body-content">
+        <p id="duplicateModalMessage" style="font-size: 0.88rem; color: #ededed; margin-bottom: 12px; line-height: 1.5;">
+          Duplicate videos are already present in your download queue or completed list.
+        </p>
+        <div class="duplicate-preview-list" id="duplicateListContainer"></div>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;">
+        <button class="btn-vercel-secondary btn-sm" id="btnCancelDuplicateModal">Cancel</button>
+        <button class="btn-vercel-primary btn-sm" id="btnSkipDuplicatesAction">Skip Duplicates & Add Remaining</button>
+        <button class="btn-ghost-sm" id="btnAddAllDuplicatesAction" style="color: #71717a;">Add Duplicates Anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT EAMINX MODAL -->
+  <div class="modal-backdrop" id="aboutModal" style="display: none;">
+    <div class="glossy-card modal-content-box about-modal-box">
+      <div class="about-modal-hero">
+        <button class="btn-about-close" id="btnCloseAboutModal" title="Close">✕</button>
+        <div class="about-avatar-glow">
+          <div class="about-avatar-inner">
+            <img src="assets/Elogo.png" alt="Eaminx Logo" class="about-hero-logo-img">
+          </div>
+        </div>
+        <h2 class="about-name">Eaminx</h2>
+        <span class="about-role">Lead Developer & Creator</span>
+        <p class="about-bio">Creator of OmniMedia Pro. Passionate about building high-performance media engines, automation tools, and ultra-sleek user experiences.</p>
+        <div class="about-tags">
+          <span class="about-tag">OmniMedia Pro v3.0</span>
+          <span class="about-tag">Fast & Parallel Engine</span>
+          <span class="about-tag">Official Community</span>
+        </div>
+      </div>
+
+      <div class="about-links-shelf">
+        <!-- Discord -->
+        <div class="about-link-card discord" data-url="https://discord.gg/wD7wfnfeFY">
+          <div class="about-link-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+          </div>
+          <div class="about-link-info">
+            <span class="about-link-title">Discord Community</span>
+            <span class="about-link-desc">discord.gg/wD7wfnfeFY</span>
+          </div>
+          <button class="about-link-action" title="Join Discord">Join Server ↗</button>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="about-link-card whatsapp" data-url="https://wa.me/+8801567997403">
+          <div class="about-link-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="about-link-info">
+            <span class="about-link-title">WhatsApp</span>
+            <span class="about-link-desc">+880 1567-997403</span>
+          </div>
+          <button class="about-link-action" title="Chat on WhatsApp">Message ↗</button>
+        </div>
+
+        <!-- Telegram -->
+        <div class="about-link-card telegram" data-url="https://t.me/Eaminx">
+          <div class="about-link-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.197 1.006.128.832.946z"/>
+            </svg>
+          </div>
+          <div class="about-link-info">
+            <span class="about-link-title">Telegram Profile</span>
+            <span class="about-link-desc">@Eaminx</span>
+          </div>
+          <button class="about-link-action" title="Open Telegram">Contact ↗</button>
+        </div>
+
+        <!-- Telegram Group -->
+        <div class="about-link-card telegram-group" data-url="https://t.me/eaminxcorp">
+          <div class="about-link-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+            </svg>
+          </div>
+          <div class="about-link-info">
+            <span class="about-link-title">Telegram Group</span>
+            <span class="about-link-desc">@eaminxcorp</span>
+          </div>
+          <button class="about-link-action" title="Join Telegram Group">Join Group ↗</button>
+        </div>
+
+        <!-- Website -->
+        <div class="about-link-card website" data-url="https://eaminx.com/">
+          <div class="about-link-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="about-link-info">
+            <span class="about-link-title">Official Website</span>
+            <span class="about-link-desc">eaminx.com</span>
+          </div>
+          <button class="about-link-action" title="Visit Website">Visit ↗</button>
+        </div>
+      </div>
+
+      <div class="about-footer-row">
+        <span>OmniMedia Pro • Developed with ❤️ by Eaminx</span>
+        <button class="btn-ghost-sm" id="btnCopyAllLinks">Copy All Links</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ULTRA SLEEK RIGHT-CLICK CONTEXT MENU -->
+  <div id="customContextMenu" class="custom-context-menu" style="display: none;">
+    <button class="ctx-item" id="ctxMenuPaste">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+      <span>Paste</span>
+      <span class="ctx-shortcut">Ctrl+V</span>
+    </button>
+    <button class="ctx-item" id="ctxMenuCopy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span>Copy</span>
+      <span class="ctx-shortcut">Ctrl+C</span>
+    </button>
+    <button class="ctx-item" id="ctxMenuCut">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+      <span>Cut</span>
+      <span class="ctx-shortcut">Ctrl+X</span>
+    </button>
+    <div class="ctx-divider"></div>
+    <button class="ctx-item" id="ctxMenuSelectAll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Select All</span>
+      <span class="ctx-shortcut">Ctrl+A</span>
+    </button>
+    <button class="ctx-item" id="ctxMenuClear">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <span>Clear</span>
+    </button>
+  <!-- FLOATING SMART CLIPBOARD SNIFFER BANNER (NEW) -->
+  <div class="clipboard-sniffer-banner" id="clipboardSnifferBanner" style="display: none;">
+    <div class="sniffer-left">
+      <div class="sniffer-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+      </div>
+      <div class="sniffer-text-group">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span class="sniffer-badge" id="snifferPlatformBadge">YOUTUBE</span>
+          <span class="sniffer-heading">Media Link Detected!</span>
+        </div>
+        <div class="sniffer-url" id="snifferUrlText">https://...</div>
+      </div>
+    </div>
+    <div class="sniffer-actions">
+      <button class="btn-vercel-primary btn-sm" id="btnSnifferInspect">Inspect & Preview</button>
+      <button class="btn-vercel-secondary btn-sm" id="btnSnifferQuickQueue">+ Queue</button>
+      <button class="btn-tag-action btn-ghost" id="btnSnifferDismiss" title="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- AUTO SHUTDOWN COUNTDOWN MODAL (NEW) -->
+  <div class="modal-backdrop" id="shutdownModal" style="display: none;">
+    <div class="glossy-card modal-content-box shutdown-box" style="max-width: 420px; text-align: center; border-color: rgba(239, 68, 68, 0.4);">
+      <div style="font-size: 2.4rem; margin-bottom: 6px;">⚡</div>
+      <h3 style="font-size: 1.25rem; font-weight: 700; color: #f87171; margin-bottom: 6px;">All Downloads Finished!</h3>
+      <p style="font-size: 0.88rem; color: #d4d4d8; margin-bottom: 14px;">
+        Auto-Shutdown is enabled. Your PC will turn off in:
+      </p>
+      <div class="shutdown-countdown-num" id="shutdownCountdownNum" style="font-size: 3rem; font-weight: 900; color: #ef4444; font-family: monospace; text-shadow: 0 0 20px rgba(239, 68, 68, 0.6);">60s</div>
+      <div class="shutdown-progress-track" style="background: rgba(255,255,255,0.08); border-radius: 99px; height: 6px; overflow: hidden; margin: 16px 0;">
+        <div id="shutdownProgressBar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #ef4444, #f43f5e); transition: width 1s linear;"></div>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
+        <button class="btn-vercel-secondary btn-sm" id="btnCancelShutdown" style="padding: 8px 18px; font-weight: 600;">Cancel Shutdown</button>
+        <button class="btn-vercel-primary btn-sm" id="btnShutDownNow" style="background: #ef4444; border-color: #f87171; padding: 8px 18px; font-weight: 600;">Shut Down Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=3.2"></script>
+</body>
+</html>
